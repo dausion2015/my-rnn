@@ -67,7 +67,7 @@ class Model():
             #使用多层叠加muil cell 2层
             lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*self.rnn_layers,state_is_tuple=True)
             #0初始化state 最开始的上一时刻状态是0
-            self.state_tensor = lstm_cell.zero_state(self.batch_size,dtype=tf.int32) #自动转换成 batch*dim_embedding
+            self.state_tensor = lstm_cell.zero_state(self.batch_size,dtype=tf.float32) #自动转换成 batch*dim_embedding
             init_state = self.state_tensor
             #在训练状态下（test和val时不用）在运行RNN之前对embedding的输出data再进行一次dropout 因为数据在进入rnn之前需要一次dropout 这次不是对cell进行drop 所以执行的是td.nn.dorpout
             if self.is_training == 1 and self.keep_prob < 1:
