@@ -6,7 +6,6 @@ import logging
 import os
 
 import tensorflow as tf
-import
 import utils
 from model import Model
 from utils import read_data
