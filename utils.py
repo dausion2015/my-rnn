@@ -9,8 +9,8 @@ import numpy as np
 
 def read_data(filename): #以读模式打开filename 文件  文件编码是utf8
     with open(filename, encoding="utf-8") as f:
-        data = f.read() #将文件以一个大的字符串读进data
-    data = list(data)  #将data中的所有字符 一字符为单位 分割成单个字符的list 相当于做了split
+        data = list(f.read()) #将文件以一个大的字符串读进data
+                   #将data中的所有字符 一字符为单位 分割成单个字符的list 相当于做了split
     return data
 
 
@@ -40,8 +40,10 @@ def get_train_data(vocabulary, batch_size, num_steps):  #这里是用课上代�
     data_y.append(vocabulary[-1]) #我的理解是在随机添加一个voca_size 范围内的下表
 
     part_size = voca_size//batch_size #每次给一个时刻的rnn单元送进去一个字 把文本按照顺序连续的分成batchsize行
-    x_data = np.ndarray(shape=[batch_size,part_size],dtype=np.int32)
-    y_data = np.ndarray(shape=[batch_size,part_size],dtype=np.int32)
+    # x_data = np.ndarray(shape=[batch_size,part_size],dtype=np.int32)  #当时设计时一位vocabulary里面时数字结果时汉字所以方式设计的x_data是nint32类型无法装载汉字出错
+    # y_data = np.ndarray(shape=[batch_size,part_size],dtype=np.int32)
+    x_data = np.ndarray(shape=[batch_size,part_size],dtype=np.unicode)#vocabulary 里面是汉字所以做为容器的xdata只能是字符串类型
+    y_data = np.ndarray(shape=[batch_size,part_size],dtype=np.unicode)#numpy的字符转类型有 no.str 应该可以是utf8 np。string是ascii unicode应该是unicode
     for i in range(batch_size):
         x_data[i] = data_x[i*part_size:(i+1)*part_size]
         y_data[i] = data_y[i*part_size:(i+1)*part_size]
