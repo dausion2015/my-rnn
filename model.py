@@ -65,7 +65,7 @@ class Model():
             if self.is_training == 1 and self.keep_prob < 1:
                 lstm_cell = tf.nn.rnn_cell.DropoutWrapper(lstm_cell,output_keep_prob=self.keep_prob)
             #使用多层叠加muil cell 2层
-            lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*self.rnn_layers,state_is_tuple=True)
+            lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell for i in range(self.rnn_layers)],state_is_tuple=True)
             #0初始化state 最开始的上一时刻状态是0
             self.state_tensor = lstm_cell.zero_state(self.batch_size,dtype=tf.float32) #自动转换成 batch*dim_embedding
             init_state = self.state_tensor
