@@ -61,14 +61,14 @@ class Model():
             '''MY CODE HERE'''
             #定义 cell unit
             lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(self.dim_embedding,forget_bias=1.0,state_is_tuple=True)
-            print("************1111111111111111111shape",lstm_cell)
+            # print("************1111111111111111111shape",lstm_cell)
             #对lstm_cell的输出进行dropout 是一种正则方法 不能再时间维度上dropout
             if self.is_training == 1 and self.keep_prob < 1:
                 lstm_cell = tf.nn.rnn_cell.DropoutWrapper(lstm_cell,output_keep_prob=self.keep_prob)
-                print("************222222222222222222shape",lstm_cell)
+                # print("************222222222222222222shape",lstm_cell)
             #使用多层叠加muil cell 2层
             lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell for i in range(self.rnn_layers)],state_is_tuple=True)
-             print("************333333333333333333333333shape",lstm_cell)
+            #  print("************333333333333333333333333shape",lstm_cell)
             #0初始化state 最开始的上一时刻状态是0
             self.state_tensor = lstm_cell.zero_state(self.batch_size,dtype=tf.float32) #自动转换成 batch*dim_embedding
             init_state = self.state_tensor
