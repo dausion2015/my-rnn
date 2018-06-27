@@ -43,7 +43,7 @@ class Model():
             tf.int32, shape=[None, self.num_steps], name='label')
 
         self.keep_prob = tf.placeholder(tf.float32, name='keep_prob')
-        self.is_training = tf.placeholder(tf.bool,name='is_training')
+        self.is_training = tf.placeholder(tf.int32,name='is_training')
         with tf.variable_scope('embedding'):
             if embedding_file:
                 # if embedding file provided, use it.
@@ -62,7 +62,7 @@ class Model():
             #定义 cell unit
             lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(self.num_steps,forget_bias=1.0,state_is_tuple=True)
             #对lstm_cell的输出进行dropout 是一种正则方法 不能再时间维度上dropout
-            if self.is_training and self.keep_prob < 1:
+            if self.is_training == 1 and self.keep_prob < 1:
                 lstm_cell = tf.nn.rnn_cell.DropoutWrapper(lstm_cell,output_keep_prob=self.keep_prob)
             #使用多层叠加muil cell 2层
             lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*self.rnn_layers,state_is_tuple=True)
@@ -70,7 +70,7 @@ class Model():
             self.state_tensor = lstm_cell.zero_state(self.batch_size,dtype=tf.int32) #自动转换成 batch*dim_embedding
             init_state = self.state_tensor
             #在训练状态下（test和val时不用）在运行RNN之前对embedding的输出data再进行一次dropout 因为数据在进入rnn之前需要一次dropout 这次不是对cell进行drop 所以执行的是td.nn.dorpout
-            if self.is_training and self.keep_prob < 1:
+            if self.is_training == 1 and self.keep_prob < 1:
                 data = tf.nn.dropout(data,keep_prob=self.keep_prob)
             #运次rnn 使用f.nn.dynamic_rnn
             '''

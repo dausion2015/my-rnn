@@ -59,7 +59,7 @@ with tf.Session() as sess:
             feed_dict = {model.X: input,
                          model.state_tensor: state,
                          model.keep_prob: 1.0,
-                         model.is_training:False}
+                         model.is_training:0}
 
             pred, state = sess.run(                            #计算[model.predictions, model.outputs_state_tensor洗一个循环时这里的state又被送到feed里
                 [model.predictions, model.outputs_state_tensor], feed_dict=feed_dict)
@@ -73,7 +73,7 @@ with tf.Session() as sess:
             feed_dict = {model.X: [[word_index]],#将返回的索引值继续作为输入预测下一个字是什么
                          model.state_tensor: state, #将0初始状态赋值给init stale
                          model.keep_prob: 1.0,
-                         model.is_training:False}
+                         model.is_training:0}
 
             pred, state = sess.run(
                 [model.predictions, model.outputs_state_tensor], feed_dict=feed_dict) #第一次循环以后这里的state都是下一次feed里的state计算predictions, finalstate

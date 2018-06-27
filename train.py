@@ -65,7 +65,7 @@ with tf.Session() as sess:
             feed_dict = {model.X:dl[0],                         #构造feed字典  dl[0]是input dl[1]是output
                          model.Y:dl[1],
                          model.state_tensor:state,
-                         model.is_training:True,     # 训练时维珍
+                         model.is_training:1,     # 训练时维珍
                          model.keep_prob:0.8}      #0.8
             gs, _, state, l, summary_string = sess.run(
                 [model.global_step, model.optimizer, model.outputs_state_tensor, model.loss, model.merged_summary_op], feed_dict=feed_dict)
