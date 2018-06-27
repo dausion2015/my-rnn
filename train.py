@@ -57,11 +57,15 @@ with tf.Session() as sess:
         state = sess.run(model.state_tensor)
         for dl in utils.get_train_data(vocabulary, batch_size=FLAGS.batch_size, num_steps=FLAGS.num_steps):
             #dl是一个2个元素list 每个元素都是一个 batch_size* num_steps2d矩阵
-            for i in range(len(dl)):  #是一个 batch_size* num_steps2d矩阵 get_train_data返回的是两组值
-                h,w = dl[i].shape
+            for d in dl:  #是一个 batch_size* num_steps2d矩阵 get_train_data返回的是两组值
+                h,w = d.shape
                 for j in range(h):
-                    dl[i][j] = [dictionary[w] for w in dl[i][j]] #将矩阵里的每一个文字都变成他字典中所对应的value 也就是高频自中的序号
-
+                    d[j] = [dictionary.get(w,0) for w in d[j]] #将矩阵里的每一个文字都变成他字典中所对应的value 也就是高频自中的序号
+#所有的字中肯定有不在字典里的  也就是低频字 直接dict【key】调用会报错  用get调用 若是低频字 它的序号是0 也就是说value是0
+# for din range(len(dl)):  #是一个 batch_size* num_steps2d矩阵 get_train_data返回的是两组值
+#                 h,w = dl[i].shape
+#                 for j in range(h):
+                    # dl[i][j] = [dictionary[w] for w in dl[i][j]] #将矩阵里的每一个文字都变成他字典中所对应的valu
             feed_dict = {model.X:dl[0],                         #构造feed字典  dl[0]是input dl[1]是output
                          model.Y:dl[1],
                          model.state_tensor:state,
