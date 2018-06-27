@@ -110,7 +110,7 @@ class Model():
         self.predictions = tf.nn.softmax(logits, name='predictions')
 # tf.nn.sparse_softmax_cross_entropy_with_logits函数能处理一个数和一个onehot的比较 不用将y转换成onehot 见笑了计算量
 #         logits = tf.reshape(logits, [self.batch_size, self.num_steps, self.num_words])
-        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=tf.reshape(self.Y, -1),logits=logits)#yreshape后是batchsize*timesteps列1行logits是batchsize*timesteps ，num_words 而groundtruth中每一个字都对应着numwords个概率值
+        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=tf.reshape(self.Y, [-1]),logits=logits)#yreshape后是batchsize*timesteps列1行logits是batchsize*timesteps ，num_words 而groundtruth中每一个字都对应着numwords个概率值
         mean, var = tf.nn.moments(logits, -1)#在最后words这个个维度上求logist的均值方差
         self.loss = tf.reduce_mean(loss)
         tf.summary.scalar('logits_loss', self.loss)
