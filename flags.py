@@ -34,8 +34,6 @@ def parse_args(check=True):
                         help='learning rate')
     parser.add_argument('--embeddingfiles',type=str ,default='embeddingfiles.npy',help='the path to embeddingfiles.npy')
 
-    # parser.add_argument('--is_training',type=bool,default=False,#是否是训练状态
-    #                     help='is_training' )
     FLAGS, unparsed = parser.parse_known_args() #将参数生成字典在FLAGS便于调用
 
     return FLAGS, unparsed
@@ -44,5 +42,5 @@ def parse_args(check=True):
 if __name__ == '__main__':
     FLAGS, unparsed = parse_args()
 
-    for x in dir(FLAGS):   #dir(FLAGS)返回FLAGS这个字典对象的属性方法 存于list
-        print(getattr(FLAGS, x))  #getattr获取制定对象的制定属性值 可以设置默认值 还有setattr 和hasattr 结果应该是true
+    for x in dir(FLAGS):   
+        print(getattr(FLAGS, x))  #getattr获取静态属性制定对象的制定属性值 可以设置默认值 还有setattr 和hasattr 结果应该是true
