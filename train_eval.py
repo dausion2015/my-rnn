@@ -14,12 +14,12 @@ if __name__ == '__main__':
     os.chdir(w_d) #os。chdir是改变目录
 
     cmd = ""
-    for parm in ["output_dir", "text", "num_steps", "batch_size", "dictionary", "reverse_dictionary", "learning_rate", 'embeddingfiles']:
+    for parm in ["output_dir", "text", "num_steps", "batch_size", "dictionary", "reverse_dictionary", "learning_rate","embeddingfiles"]:
         try:
             cmd += ' --{0}={1}'.format(parm, getattr(FLAGS, parm))#拼接命令字符串 通过过getatr获取外部传入的参数值 FLAGS是外部命令参数字典
         except:
             raise Exception('error')
-
+        print('**************************************************************',getattr(FLAGS, parm))
     for i in range(30):
        # train 1 epoch
         print('################    train    ################')
