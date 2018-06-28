@@ -3,6 +3,8 @@
 
 import numpy as np
 import tensorflow as tf
+# from flags import parse_args
+# FLAGS,unparse = parse_args()
 
 
 class Model():

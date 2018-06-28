@@ -12,6 +12,8 @@ from model import Model
 
 from flags import parse_args
 FLAGS, unparsed = parse_args()
+# embedding_file_path = FLAGS.embeddingflies
+# embedding_file = np.load(embedding_file_path)#难道他这个loads和load的区别也和json一样 不对jspn都是先打开文件句柄 只是read是否的问题
 
 logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s', level=logging.DEBUG)
@@ -31,7 +33,7 @@ titles = ['江神子', '蝶恋花', '渔家傲']
 
 #Model在model。py
 model = Model(learning_rate=FLAGS.learning_rate, batch_size=1, num_steps=1)
-model.build()
+model.build(embedding_file = FLAGS.embeddingflies)
 
 with tf.Session() as sess:
     summary_string_writer = tf.summary.FileWriter(FLAGS.output_dir, sess.graph)#将op点写入文件output_dir

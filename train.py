@@ -4,7 +4,7 @@
 import json
 import logging
 import os
-
+import numpy as np
 import tensorflow as tf
 import utils
 from model import Model
@@ -12,6 +12,8 @@ from utils import read_data
 from utils import build_dataset
 from flags import parse_args
 FLAGS, unparsed = parse_args()
+
+ #难道他这个loads和load的区别也和json一样 不对jspn都是先打开文件句柄 只是read是否的问题
 
 # is_training = True
 #
@@ -33,7 +35,7 @@ with open(FLAGS.reverse_dictionary,'r',encoding='utf-8') as inf:
 
 
 model = Model(learning_rate=FLAGS.learning_rate, batch_size=FLAGS.batch_size, num_steps=FLAGS.num_steps)
-model.build()
+model.build(embedding_file = FLAGS.embeddingflies)
 
 
 with tf.Session() as sess:
@@ -71,8 +73,8 @@ with tf.Session() as sess:
                          model.state_tensor:state,
                          model.is_training:1,     # 训练时维珍
                          model.keep_prob:0.8}      #0.8
-            print('*************************************************************',dl[0])
-            print('*************************************************************',dl[1])
+            # print('*************************************************************',dl[0])
+            # print('*************************************************************',dl[1])
             gs, _, state, l, summary_string = sess.run(
                 [model.global_step, model.optimizer, model.outputs_state_tensor, model.loss, model.merged_summary_op], feed_dict=feed_dict)
             summary_string_writer.add_summary(summary_string, gs) #
