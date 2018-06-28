@@ -54,6 +54,7 @@ class Model():
                 embed = tf.constant(embedding, name='embedding')#生成常量
             else:
                 # if not, initialize an embedding and train it.
+                print('no emdedding')
                 embed = tf.get_variable(                  #获取embedding 输入层到隐层的权重矩阵
                     'embedding', [self.num_words, self.dim_embedding])
                 tf.summary.histogram('embed', embed)
