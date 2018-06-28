@@ -28,8 +28,8 @@ data1, count1, dictionary1, reversed_dictionary1 = build_dataset(vocabulary, 500
 with open(FLAGS.dictionary, 'r',encoding='utf8') as inf:#载入字典
     dictionary = json.load(inf)
 
-with open(FLAGS.reverse_dictionary, encoding='utf-8','r') as inf:
-    reverse_dictionary = json.load(inf,ncoding='utf-8')
+with open(FLAGS.reverse_dictionary,'r',encoding='utf-8') as inf:
+    reverse_dictionary = json.load(inf,encoding='utf-8')
 
 
 model = Model(learning_rate=FLAGS.learning_rate, batch_size=FLAGS.batch_size, num_steps=FLAGS.num_steps)
