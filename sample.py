@@ -29,7 +29,7 @@ titles = ['江神子', '蝶恋花', '渔家傲']
 
 #Model在model。py
 model = Model(learning_rate=FLAGS.learning_rate, batch_size=1, num_steps=1)
-model.build(embedding_file = FLAGS.embeddingflies)
+model.build(embedding_file=FLAGS.embeddingflies)
 
 with tf.Session() as sess:
     summary_string_writer = tf.summary.FileWriter(FLAGS.output_dir, sess.graph)#将op点写入文件output_dir
