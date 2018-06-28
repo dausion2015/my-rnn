@@ -29,7 +29,7 @@ with open(FLAGS.reverse_dictionary,'r',encoding='utf-8') as inf:
 
 
 model = Model(learning_rate=FLAGS.learning_rate, batch_size=FLAGS.batch_size, num_steps=FLAGS.num_steps)
-print()
+
 model.build(embedding_file=FLAGS.embedpath)
 
 
