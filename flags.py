@@ -32,7 +32,7 @@ def parse_args(check=True):
 
     parser.add_argument('--learning_rate', type=float, default=0.001, #学习率
                         help='learning rate')
-    parser.add_argument('--embedpath',type=str,default='/data/dausion2015/my-rnn-quansongci-txt/embedding.npy',help='the path to embeddingfiles.npy')
+    parser.add_argument('--embedpath',type=str,default='',help='the path to embeddingfiles.npy')
 
     FLAGS, unparsed = parser.parse_known_args() #将参数生成字典在FLAGS便于调用
 
