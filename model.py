@@ -42,8 +42,8 @@ class Model():
         self.Y = tf.placeholder(
             tf.int32, shape=[None, self.num_steps], name='label')
 
-        self.keep_prob = tf.placeholder(tf.float32, name='keep_prob')
-        self.is_training = tf.placeholder(tf.int32,name='is_training')
+        self.keep_prob = tf.placeholder(tf.float32, name='keep_prob',)
+        self.is_training = tf.placeholder(tf.int32,name='is_training',)
         with tf.variable_scope('embedding'):
             if embedding_file:
                 # if embedding file provided, use it.

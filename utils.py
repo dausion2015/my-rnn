@@ -42,8 +42,12 @@ def get_train_data(vocabulary, batch_size, num_steps):  #这里是用课上代�
     part_size = voca_size//batch_size #每次给一个时刻的rnn单元送进去一个字 把文本按照顺序连续的分成batchsize行
     # x_data = np.ndarray(shape=[batch_size,part_size],dtype=np.int32)  #当时设计时一位vocabulary里面时数字结果时汉字所以方式设计的x_data是nint32类型无法装载汉字出错
     # y_data = np.ndarray(shape=[batch_size,part_size],dtype=np.int32)
-    x_data = np.ndarray(shape=[batch_size,part_size],dtype=np.unicode)#vocabulary 里面是汉字所以做为容器的xdata只能是字符串类型
-    y_data = np.ndarray(shape=[batch_size,part_size],dtype=np.unicode)#numpy的字符转类型有 no.str 应该可以是utf8 np。string是ascii unicode应该是unicode
+    # x_data = np.ndarray(shape=[batch_size,part_size],dtype=np.unicode)#vocabulary 里面是汉字所以做为容器的xdata只能是字符串类型
+    # y_data = np.ndarray(shape=[batch_size,part_size],dtype=np.unicode)#numpy的字符转类型有 no.str 应该可以是utf8 np。string是ascii unicode应该是unicode
+    # np.ndarray要想保存字符串（unicode）像本例子的情况必须在dtype上下功夫可以是np.object 也可是'U5''|U5''<U5'但是'S5''|S5'这些真不行试验过
+    # 也可以不用np.ndarray 使用np.chararray  unicode-ture
+    x_data = np.chararray(shape=[batch_size,part_size],unicode=True)  #当时设计时一位vocabulary里面时数字结果时汉字所以方式设计的x_data是nint32类型无法装载汉字出错
+    y_data = np.chararray(shape=[batch_size,part_size],unicode=True)
     for i in range(batch_size):
         x_data[i] = data_x[i*part_size:(i+1)*part_size]
         y_data[i] = data_y[i*part_size:(i+1)*part_size]
