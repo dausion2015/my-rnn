@@ -71,7 +71,8 @@ with tf.Session() as sess:
                          model.state_tensor:state,
                          model.is_training:1,     # 训练时维珍
                          model.keep_prob:0.8}      #0.8
-            print('*************************************************************',dl[0][:2,:2])
+            print('*************************************************************',dl[0])
+            print('*************************************************************',dl[1])
             gs, _, state, l, summary_string = sess.run(
                 [model.global_step, model.optimizer, model.outputs_state_tensor, model.loss, model.merged_summary_op], feed_dict=feed_dict)
             summary_string_writer.add_summary(summary_string, gs) #
