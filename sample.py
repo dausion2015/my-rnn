@@ -62,7 +62,7 @@ with tf.Session() as sess:
             pred, state = sess.run(                            
                 [model.predictions, model.outputs_state_tensor], feed_dict=feed_dict)
 
-        sentence = title  #SENTENCE自加
+        sentence = '=============='+title+'=============='+title  #SENTENCE自加
 
         word_index = np.random.choice(range(len(reverse_list)),p=pred[0])
         # generate sample
