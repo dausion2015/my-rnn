@@ -49,7 +49,7 @@ class Model():
         with tf.variable_scope('embedding'):
             if embedding_file:
                 # if embedding file provided, use it.
-                print(embedding_file)
+                # print(embedding_file)
                 embedding = np.load(embedding_file)#np.load是将npy文件保存的array载入内存形成一个array 参数是npy文件路径 而np.save是将内存中的array保存在文件中
                 embed = tf.constant(embedding, name='embedding')#生成常量
             else:
