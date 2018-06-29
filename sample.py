@@ -75,8 +75,11 @@ with tf.Session() as sess:
             pred, state = sess.run(
                 [model.predictions, model.outputs_state_tensor], feed_dict=feed_dict) 
 
-            word_index = pred[0] .argsort()[-1] 
-            word = np.take(reverse_list, word_index)
+            # word_index = pred[0] .argsort()[-1] 
+            p_index = pred[0]
+            # word = np.take(reverse_list, word_index)
+            word_index = np.random.choice(range(len(reverse_list),p=p_index)
+            word = reverse_dictionary.get(word_index)
             sentence = sentence + word 
 
         logging.debug('==============[{0}]=============='.format(title))
