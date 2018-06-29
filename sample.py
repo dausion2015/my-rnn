@@ -64,7 +64,7 @@ with tf.Session() as sess:
 
         sentence = title  #SENTENCE自加
 
-        word_index = pred[0].argsort()[-1]
+        word_index = np.random.choice(range(len(reverse_list)),p=pred[0])
         # generate sample
         for i in range(64):  #执行64遍
             feed_dict = {model.X: [[word_index]],#将返回的索引值继续作为输入预测下一个字是什么
@@ -78,8 +78,8 @@ with tf.Session() as sess:
             # word_index = pred[0] .argsort()[-1] 
             p_index = pred[0]
             # word = np.take(reverse_list, word_index)
-            word_index = np.random.choice(range(len(reverse_list),p=p_index)
-            word = reverse_dictionary.get(word_index)
+            word_index = np.random.choice(range(len(reverse_list),p=p_index))
+            word = reverse_dictionary[str(word_index)]
             sentence = sentence + word 
             s_dir = os.path.dirname(FLAGS.output_dir)
             s_name = str(i)+'.txt'
