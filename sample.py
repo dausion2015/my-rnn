@@ -3,7 +3,7 @@
 
 import json
 import logging
-
+import os
 import numpy as np
 import tensorflow as tf
 
@@ -81,6 +81,11 @@ with tf.Session() as sess:
             word_index = np.random.choice(range(len(reverse_list),p=p_index)
             word = reverse_dictionary.get(word_index)
             sentence = sentence + word 
+            s_dir = os.path.dirname(FLAGS.output_dir)
+            s_name = str(i)+'.txt'
+            with open(os.path.join(s_dir,s_name),'w',encoding='utf8',errors='ignore') as fig:
+                fig.write(sentence)
+
 
         logging.debug('==============[{0}]=============='.format(title))
         logging.debug(sentence)
