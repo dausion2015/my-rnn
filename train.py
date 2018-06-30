@@ -30,7 +30,7 @@ with open(FLAGS.reverse_dictionary,'r',encoding='utf-8') as inf:
 
 model = Model(learning_rate=FLAGS.learning_rate, batch_size=FLAGS.batch_size, num_steps=FLAGS.num_steps)
 
-model.build(embedding_file=FLAGS.embedpath)
+model.build()
 
 
 with tf.Session() as sess:
@@ -54,9 +54,10 @@ with tf.Session() as sess:
         state = sess.run(model.state_tensor)
         for dl in utils.get_train_data(vocabulary, batch_size=FLAGS.batch_size, num_steps=FLAGS.num_steps):
             for i in range(len(dl)):  #是一个 batch_size* num_steps2d矩阵 get_train_data返回的是两组值
-                h,w = dl[i].shape
-                for j in range(h):
-                    dl[i][j] = [dictionary.get(w,0) for w in dl[i][j]] #将矩阵里的每一个文字都变成他字典中所对应的valu
+                # h,w = dl[i].shape
+                # for j in range(h):
+                #     dl[i][j] = [dictionary.get(w,0) for w in dl[i][j]] #将矩阵里的每一个文字都变成他字典中所对应的valu
+                dl[i] = utils.index_data(dl[i],dictionary)
             feed_dict = {model.X:dl[0],                         #构造feed字典  dl[0]是input dl[1]是output
                          model.Y:dl[1],
                          model.state_tensor:state,

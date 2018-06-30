@@ -29,7 +29,7 @@ titles = ['江神子', '蝶恋花', '渔家傲']
 
 #Model在model。py
 model = Model(learning_rate=FLAGS.learning_rate, batch_size=1, num_steps=1)
-model.build(embedding_file=FLAGS.embedpath)
+model.build()
 
 with tf.Session() as sess:
     summary_string_writer = tf.summary.FileWriter(FLAGS.output_dir, sess.graph)#将op点写入文件output_dir
@@ -62,7 +62,7 @@ with tf.Session() as sess:
             pred, state = sess.run(                            
                 [model.predictions, model.outputs_state_tensor], feed_dict=feed_dict)
 
-        sentence = '=============='+title+'=============='+title  #SENTENCE自加
+        sentence = title  #SENTENCE自加
 
         word_index = np.random.choice(range(len(reverse_list)),p=pred[0])
         # generate sample
@@ -81,11 +81,9 @@ with tf.Session() as sess:
             word_index = np.random.choice(range(len(reverse_list)),p=p_index)
             word = reverse_dictionary[str(word_index)]
             sentence = sentence + word 
-            s_dir = os.path.dirname(FLAGS.output_dir)
-            s_name = str(datetime.datetime.now())
-            with open(os.path.join(s_dir,s_name),'w',encoding='utf8',errors='ignore') as fig:
-                fig.write(sentence)
-
-
         logging.debug('==============[{0}]=============='.format(title))
         logging.debug(sentence)
+        # s_dir = os.path.dirname(FLAGS.output_dir)
+        # s_name = str(datetime.datetime.now())
+        # with open(os.path.join(s_dir,s_name),'w',encoding='utf8',errors='ignore') as fig:
+        #     fig.write(sentence)
