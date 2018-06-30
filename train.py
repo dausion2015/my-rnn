@@ -53,7 +53,7 @@ with tf.Session() as sess:
         logging.debug('epoch [{0}]....'.format(x))
         state = sess.run(model.state_tensor)
         for dl in utils.get_train_data(vocabulary, batch_size=FLAGS.batch_size, num_steps=FLAGS.num_steps):
-            X = np.zeros_like(dl,dtype=np.int32)
+            X = np.zeros(dl.shape,dtype=np.int32)
             for i in range(len(dl)):  #是一个 batch_size* num_steps2d矩阵 get_train_data返回的是两组值
                 # h,w = dl[i].shape
                 # for j in range(h):

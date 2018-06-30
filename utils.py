@@ -19,7 +19,8 @@ def index_data(sentences, dictionary): #传入array和dict
     # print('sentences shape1',shape)
     sentences = sentences.reshape([-1])#拉长为行向量
     # print('sentences shape2',shape)
-    index = np.zeros_like(sentences, dtype=np.int32)
+    # shape_s = sentences.shape
+    index = np.zeros(sentences.shape, dtype=np.int32)
     for i in range(len(sentences)):
         try:
             index[i] = dictionary[sentences[i]]
