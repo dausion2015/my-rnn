@@ -39,10 +39,10 @@ def get_train_data(vocabulary, batch_size, num_steps):
 
     part_size = voca_size//batch_size 
 
-    # x_data = np.chararray(shape=[batch_size,part_size],unicode=True)  
-    # y_data = np.chararray(shape=[batch_size,part_size],unicode=True)
-    x_data = np.ndarray(shape=[batch_size,part_size],dtype=np.object)  
-    y_data = np.ndarray(shape=[batch_size,part_size],dtype=np.object)  
+    x_data = np.chararray(shape=[batch_size,part_size],unicode=True)  
+    y_data = np.chararray(shape=[batch_size,part_size],unicode=True)
+    # x_data = np.ndarray(shape=[batch_size,part_size],dtype=np.object)  
+    # y_data = np.ndarray(shape=[batch_size,part_size],dtype=np.object)  
     for i in range(batch_size):
         x_data[i] = data_x[i*part_size:(i+1)*part_size]
         y_data[i] = data_y[i*part_size:(i+1)*part_size]
